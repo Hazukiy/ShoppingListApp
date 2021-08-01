@@ -1,0 +1,36 @@
+#actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#error-container {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    display: none;
+}
+
+#error-body {
+    padding: 10px !important;
+}
+
+#error-splitter {
+    color: #111111;
+}
+
+#error-top {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+#error-icon {
+    margin-right: 10px;;
+}
+
+#error-close {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+}

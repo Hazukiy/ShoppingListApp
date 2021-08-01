@@ -1,0 +1,80 @@
+[
+    {
+        "id" : 1,
+        "name" : "Chicken",
+        "price" : 9.99,
+        "image" : "chicken.jpg"
+    },
+    {
+        "id" : 2,
+        "name" : "Milk",
+        "price" : 1.09,
+        "image" : "milk.jpg"
+    },
+    {
+        "id" : 3,
+        "name" : "Frozen Veg",
+        "price" : 1.09,
+        "image" : "frozen-veg.jpg"
+    },
+    {
+        "id" : 4,
+        "name" : "Salad",
+        "price" : 1.20,
+        "image" : "salad.jpg"
+    },
+    {
+        "id" : 5,
+        "name" : "Orange Juice",
+        "price" : 1.65,
+        "image" : "orange-juice.jpg"
+    },
+    {
+        "id" : 6,
+        "name" : "Actimel",
+        "price" : 2.50,
+        "image" : "actimel.jpg"
+    },
+    {
+        "id" : 7,
+        "name" : "Cottage Cheese",
+        "price" : 1.25,
+        "image" : "cottage-cheese.jpg"
+    },
+    {
+        "id" : 8,
+        "name" : "Seasoning",
+        "price" : 0.95,
+        "image" : "seasoning.jpg"
+    },
+    {
+        "id" : 9,
+        "name" : "Eggs",
+        "price" : 1.75,
+        "image" : "eggs.jpg"
+    },
+    {
+        "id" : 10,
+        "name" : "Bread",
+        "price" : 1.10,
+        "image" : "bread.jpg"
+    },
+    {
+        "id" : 11,
+        "name" : "Bananas",
+        "price" : 0.75,
+        "image" : "bananas.jpg"
+    },
+    {
+        "id" : 12,
+        "name" : "Apples",
+        "price" : 1.49,
+        "image" : "apples.jpg"
+    },
+    {
+        "id" : 13,
+        "name" : "Rice",
+        "price" : 2.30,
+        "image" : "rice.jpg"
+    }
+]

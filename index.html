@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Shopping List</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+    <link rel="stylesheet" href="css/mdb.min.css" />
+    <link rel="stylesheet" href="css/sl.site.globals.css" />
+    <link rel="stylesheet" href="css/sl.site.locals.css" />
+    <script type="text/javascript" src="js/sl.main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!--This is needed for debugging auto refresh -->
+    <script>
+      document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] +
+      ':35729/livereload.js?snipver=1"></' + 'script>')
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center text-warning">Shopping List</h1>
+      <hr>
+      <nav id="actions">
+        <button type="button" class="btn btn-success action-button" onclick="loadPredefinedList()">Create New List</button>
+        <button type="button" class="btn btn-warning action-button" onclick="displayError()">Try Load List</button>
+      </nav>
+      <hr>
+
+      <div id="createList">
+        <h2 class="text-center">Create New List</h2>
+        <p id="totalAmount" class="text-center text-danger">Total: <b>£0.00</b></p>
+        <div id="predefinedList">
+        </div>
+      </div>
+
+
+
+      <!-- CUSTOM ERROR MODAL START -->
+      <div id="error-container" class="bg-danger">
+        <div id="error-body">
+          <div id="error-top">
+            <i id="error-icon" class="fas fa-exclamation-circle fa-2x"></i>
+            <h4 id="error-header">Error!</h3>
+          </div>
+          <hr id="error-splitter">
+          <span id="error-details"></span>
+        </div>
+      </div>
+      <!-- CUSTOM ERROR MODAL END -->
+
+      <!-- SHOPPING LIST SECTION START -->
+      <div id="list-section" hidden>
+        <h3 class="text-center">Today's List</h3>
+        <ul id="list">
+
+
+
+        </ul>
+      </div>
+      <!-- SHOPPING LIST SECTION END -->
+
+    </div>
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <script type="text/javascript" src="js/sl.apihandler.js"></script>
+    <script type="text/javascript" src="js/sl.listItemHandler.js"></script>
+    <script type="text/javascript" src="js/sl.domcontroller.js"></script>
+  </body>
+</html>
