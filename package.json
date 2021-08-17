@@ -1,24 +1,51 @@
 {
-  "name": "shoppinglistapp",
+  "name": "shopping-list-app",
   "version": "1.0.0",
-  "description": "Packages needed for shopping list app",
-  "main": "index.js",
+  "private": true,
+  "license": "MIT",
   "scripts": {
-    "test": "test"
+    "serve": "vue-cli-service serve",
+    "start": "vue-cli-service serve --open",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Hazukiy/ShoppingListApp.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Hazukiy/ShoppingListApp/issues"
-  },
-  "homepage": "https://github.com/Hazukiy/ShoppingListApp#readme",
   "dependencies": {
-    "express": "^4.17.1",
-    "http-server": "^0.12.3",
-    "livereload": "^0.9.3"
-  }
+    "axios": "^0.21.1",
+    "core-js": "^3.6.5",
+    "mdb-vue-ui-kit": "1.0.0",
+    "public-ip": "^4.0.4",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0-0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^7.0.0-0",
+    "sass": "^1.26.5",
+    "sass-loader": "^8.0.2"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }

@@ -1,0 +1,4 @@
+1. Server-side caching on created lists, which can be used if we refresh (maybe)
+2. Login
+3. Add own custom items
+4. TOMORROW-  DO SORT ON LIST BY ORDERID

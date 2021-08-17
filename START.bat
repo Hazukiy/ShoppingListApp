@@ -1,3 +1,2 @@
-start livereload
-start http-server -o "index.html"
+start npm start
 start node "api/server.js"
