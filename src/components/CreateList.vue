@@ -1,9 +1,10 @@
 <template>
     <div class="list-container">
         <div id="clear-container">
+            <input type="text" class="form-control" id="searchItems" aria-describedby="searchForItems" placeholder="Search Items" @keyup="filterResults()">
             <button type="button" class="btn btn-primary btn-lg btn-block" @click="clearSelected()">Clear Selected</button>
         </div>
-        <div v-for="item in predefinedList" :key="item.name" class="shopping-item" @click="checkListItem(item)" :itemid="item.id">
+        <div v-for="item in sortArray" :key="item.name" class="shopping-item" @click="checkListItem(item)" :itemid="item.id">
             <div class="shopping-image">
                 <img :src="computeImagePath(item)" :alt="item.name" />
             </div>
@@ -16,12 +17,12 @@
         </div>
         <footer class="fixed-bottom">
             <div class="container">
-            <div id="cost-container">
-                <span id="total-price" class="text-warning">Total: £{{ totalAmount.toFixed(2) }}</span>
-            </div>
-            <div id="controls-container">
-                <button type="button" class="btn btn-success btn-lg btn-block" @click="submitNewList()">Complete</button>
-            </div>
+              <div id="cost-container">
+                  <span id="total-price" class="text-warning">Total: £{{ totalAmount.toFixed(2) }} ({{ totalItems }} Items)</span>
+              </div>
+              <div id="controls-container">
+                  <button type="button" class="btn btn-success btn-lg btn-block" @click="submitNewList()">Complete</button>
+              </div>
             </div>
         </footer>
     </div>
@@ -33,7 +34,11 @@ export default {
     return {
       predefinedList: [],
       checkedList: [],
-      totalAmount: 0.0
+      totalAmount: 0.0,
+      totalItems: 0,
+      showModal: true,
+      filterBySearch: false,
+      searchTerm: ""
     }
   },
   mounted() {
@@ -41,6 +46,30 @@ export default {
     .then(res => res.json())
     .then(data => this.predefinedList = data)
     .catch(err => this.raiseError(err, 1))
+  },
+  computed: {
+    sortArray() {
+      // TODO: Almost fixed this
+      let data = this.predefinedList;
+      if(this.filterBySearch) {
+        // Create timer to refresh just after filter
+        this.reapplyDOMChanges();
+        return data.filter(x => x.name.toLowerCase().includes(this.searchTerm.toLowerCase()));
+      }
+      else {
+        return data.sort(function(a, b) {
+          let val1 = a.region;
+          let val2 = b.region;
+          if(val1 < val2) {
+            return -1;
+          }
+          if(val1 > val2) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+    }
   },
   methods: {
     checkListItem(ref) {
@@ -51,11 +80,13 @@ export default {
             if(index != -1) {
                 this.checkedList.splice(index, 1);
                 this.totalAmount -= ref.price;
+                this.totalItems--;
                 this.animateText(false);
             }
             else {
                 this.checkedList.push(ref);
                 this.totalAmount += ref.price;
+                this.totalItems++;
                 this.animateText(true);
             }
             this.updateDomState(ref, doesExist);
@@ -91,6 +122,7 @@ export default {
       // Next splice the array and restore data to normal state
       this.checkedList.splice(0, this.checkedList.length);
       this.totalAmount = 0.0;
+      this.totalItems = 0;
     },
     animateText(isAddition) {
       let text = document.getElementById("total-price");
@@ -116,6 +148,11 @@ export default {
       }
     },
     submitNewList() {
+        if(this.checkedList.length <= 0) {
+          this.raiseError("No items selected", 1);
+          return;
+        }
+
         const requestParams = {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -143,6 +180,38 @@ export default {
       if(console) {
         console.log(`Error raised (priority - ${priority}): ${err}`);
       }
+    },
+    filterResults() {
+      let term = document.getElementById("searchItems").value;
+      
+      if(term.length > 0) {
+        this.filterBySearch = true;
+        this.searchTerm = term;
+        this.reapplyDOMChanges();
+      }
+      else {
+        this.filterBySearch = false;
+        this.searchTerm = term;
+        this.reapplyDOMChanges();
+      }
+    },
+    reapplyDOMChanges() {
+      // This sucks, but its a solution. Need to check if DOM is full loaded and then check.. somehow
+      setTimeout(() => {
+        for(let i = 0; i < this.checkedList.length; i++) {
+            let domElement = document.querySelectorAll(`[itemid="${this.checkedList[i].id}"]`)[0];
+
+            console.log(`ItemID: ${this.checkedList[i].id}`);
+
+            if(domElement == null || domElement == undefined) {
+              console.log("Value doesn't exist, so ignoring");
+              continue;
+            }
+
+            let checkBox = domElement.querySelector('[id="shopping-tick"]');
+            checkBox.checked = true;
+        }
+      }, 500);
     }
   }
 };
@@ -193,11 +262,16 @@ export default {
     }
 
     #cost-container > span {
-        font-size: 1.8em;
+        font-size: 1em;
+        line-height: 2.8em;
         margin: auto;
     }
 
     #item-text {
         font-size: 1em; /* To avoid pushing elements off the screen */
+    }
+
+    #searchItems {
+      margin-bottom: 10px;
     }
 </style>

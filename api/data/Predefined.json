@@ -1,107 +1,177 @@
 [
     {
         "id" : 1,
-        "orderID": 1,
+        "region": 1,
         "name" : "Chicken",
         "price" : 9.99,
         "image" : "chicken.jpg"
     },
     {
         "id" : 2,
-        "orderID": 6,
+        "region": 1,
         "name" : "Milk",
         "price" : 1.09,
         "image" : "milk.jpg"
     },
     {
         "id" : 3,
-        "orderID": 7,
+        "region": 2,
         "name" : "Frozen Veg",
         "price" : 1.09,
         "image" : "frozen-veg.jpg"
     },
     {
         "id" : 4,
-        "orderID": 15,
+        "region": 7,
         "name" : "Salad",
         "price" : 1.20,
         "image" : "salad.jpg"
     },
     {
         "id" : 5,
-        "orderID": 3,
+        "region": 1,
         "name" : "Orange Juice",
         "price" : 1.65,
         "image" : "orange-juice.jpg"
     },
     {
         "id" : 6,
-        "orderID": 5,
+        "region": 1,
         "name" : "Actimel",
         "price" : 2.50,
         "image" : "actimel.jpg"
     },
     {
         "id" : 7,
-        "orderID": 4,
+        "region": 1,
         "name" : "Cottage Cheese",
         "price" : 1.25,
         "image" : "cottage-cheese.jpg"
     },
     {
         "id" : 8,
-        "orderID": 12,
+        "region": 3,
         "name" : "Seasoning",
         "price" : 0.95,
         "image" : "seasoning.jpg"
     },
     {
         "id" : 9,
-        "orderID": 9,
+        "region": 3,
         "name" : "Eggs",
         "price" : 1.75,
         "image" : "eggs.jpg"
     },
     {
         "id" : 10,
-        "orderID": 10,
+        "region": 4,
         "name" : "Bread",
         "price" : 1.10,
         "image" : "bread.jpg"
     },
     {
         "id" : 11,
-        "orderID": 13,
+        "region": 7,
         "name" : "Bananas",
         "price" : 0.75,
         "image" : "bananas.jpg"
     },
     {
         "id" : 12,
-        "orderID": 14,
+        "region": 7,
         "name" : "Apples",
         "price" : 1.49,
         "image" : "apples.jpg"
     },
     {
         "id" : 13,
-        "orderID": 8,
+        "region": 3,
         "name" : "Rice",
         "price" : 2.30,
         "image" : "rice.jpg"
     },
     {
         "id" : 14,
-        "orderID": 11,
+        "region": 4,
         "name" : "Wraps",
         "price" : 1.40,
         "image" : "wraps.jpg"
     },
     {
         "id" : 15,
-        "orderID": 2,
+        "region": 1,
         "name" : "Butter",
         "price" : 2.00,
         "image" : "butter.jpg"
+    },
+    {
+        "id" : 16,
+        "region": 5,
+        "name" : "Handwash",
+        "price" : 1.00,
+        "image" : "handwash.jpg"
+    },
+    {
+        "id" : 17,
+        "region": 5,
+        "name" : "Bleach",
+        "price" : 0.39,
+        "image" : "bleach.jpg"
+    },
+    {
+        "id" : 18,
+        "region": 5,
+        "name" : "Black Bags",
+        "price" : 2.80,
+        "image" : "blackbags.jpg"
+    },
+    {
+        "id" : 19,
+        "region": 5,
+        "name" : "Toilet Roll",
+        "price" : 3.40,
+        "image" : "toiletroll.jpg"
+    },
+    {
+        "id" : 20,
+        "region": 7,
+        "name" : "Tomatoes",
+        "price" : 0.85,
+        "image" : "tomatoes.jpg"
+    },
+    {
+        "id" : 21,
+        "region": 7,
+        "name" : "Cucumber",
+        "price" : 0.75,
+        "image" : "cucumber.jpg"
+    },
+    {
+        "id" : 22,
+        "region": 6,
+        "name" : "Beer",
+        "price" : 14.85,
+        "image" : "beer.jpg"
+    },
+    {
+        "id" : 23,
+        "region": 6,
+        "name" : "Pepsi",
+        "price" : 1.90,
+        "image" : "pepsi.jpg"
+    },
+    {
+        "id" : 24,
+        "region": 3,
+        "name" : "Jalapenos",
+        "price" : 1.00,
+        "image" : "jalapenos.jpg"
+    },
+    {
+        "id" : 25,
+        "region": 6,
+        "name" : "Wine",
+        "price" : 7.00,
+        "image" : "wine.jpg"
     }
 ]

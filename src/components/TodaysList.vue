@@ -1,7 +1,7 @@
 <template>
     <div class="list-container">
       <h4 class="text-danger text-center">Today's List - £{{ totalAmount.toFixed(2) }}</h4>
-      <div v-for="item in listToday" :key="item.name" class="shopping-item" @click="completeListItem(item)" :itemid="item.id">
+      <div v-for="item in sortArray" :key="item.name" class="shopping-item" @click="completeListItem(item)" :itemid="item.id">
           <div class="shopping-image">
             <img :src="computeImagePath(item)" :alt="item.name" />
           </div>
@@ -23,6 +23,22 @@ export default {
     return {
       listToday: [],
       totalAmount: 0.0
+    }
+  },
+  computed: {
+    sortArray() {
+      let data = this.listToday;
+      return data.sort(function(a, b) {
+        let val1 = a.region;
+        let val2 = b.region;
+        if(val1 < val2) {
+          return -1;
+        }
+        if(val1 > val2) {
+          return 1;
+        }
+        return 0;
+      });
     }
   },
   mounted() {
