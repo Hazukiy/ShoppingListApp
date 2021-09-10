@@ -21,7 +21,8 @@ export default {
       hasListToday: false,
       errorRaised: false,
       errorMessage: "",
-      errorPriority: 0
+      errorPriority: 0,
+      activeHost: ""
     }
   },
   components: {
@@ -32,10 +33,10 @@ export default {
   },
   mounted() {
     // Make a call to see if there's a list that exists for today
-    fetch('http://86.162.193.13:8081/hasListToday')
+    fetch('http://lukeharv.com:8081/hasListToday')
     .then(res => res.json())
     .then(data => { this.hasListToday = data; })
-    .catch(err => console.log(err)) // Need to do something about this lol
+    .catch(err => console.log(err))
 
     // Create a new custom event listener
     this.$el.addEventListener('raiseError', e => {

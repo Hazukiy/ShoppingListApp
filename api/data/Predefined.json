@@ -173,5 +173,19 @@
         "name" : "Wine",
         "price" : 7.00,
         "image" : "wine.jpg"
+    },
+    {
+        "id" : 26,
+        "region": 3,
+        "name" : "Cereal",
+        "price" : 3.50,
+        "image" : "cereal.jpg"
+    },
+    {
+        "id" : 27,
+        "region": 4,
+        "name" : "Marmite",
+        "price" : 2.70,
+        "image" : "marmite.jpg"
     }
 ]

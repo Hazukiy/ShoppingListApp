@@ -1,13 +1,16 @@
 <template>
     <div class="list-container">
       <h4 class="text-danger text-center">Today's List - £{{ totalAmount.toFixed(2) }}</h4>
-      <div v-for="item in sortArray" :key="item.name" class="shopping-item" @click="completeListItem(item)" :itemid="item.id">
+        <div v-for="item in sortArray" :key="item.name" class="shopping-item" @click="completeListItem(item)" :itemid="item.id">
           <div class="shopping-image">
             <img :src="computeImagePath(item)" :alt="item.name" />
           </div>
           <div class="shopping-details">
             <h4>{{ item.name }} - £{{ item.price.toFixed(2) }}</h4>
           </div>
+        </div>
+        <div id="noteContainer">
+          <textarea id="notes" v-model="notes"></textarea>
         </div>
         <footer class="fixed-bottom">
           <div class="container">
@@ -22,6 +25,7 @@ export default {
   data() {
     return {
       listToday: [],
+      notes: "",
       totalAmount: 0.0
     }
   },
@@ -42,7 +46,7 @@ export default {
     }
   },
   mounted() {
-    fetch('http://86.162.193.13:8081/getListToday')
+    fetch('http://lukeharv.com:8081/getListToday')
     .then(res => res.json())
     .then(data => {
       this.listToday = data;
@@ -51,6 +55,13 @@ export default {
       for(let i = 0; i < this.listToday.length; i++) {
         this.totalAmount += this.listToday[i].price;
       }
+    })
+    .catch(err => this.raiseError(err, 1))
+
+    fetch('http://lukeharv.com:8081/getNotesToday')
+    .then(res => res.json())
+    .then(data => {     
+      this.notes = data.notes;
     })
     .catch(err => this.raiseError(err, 1))
   },
@@ -78,13 +89,25 @@ export default {
       }
     },
     completeList() {
-      fetch('http://86.162.193.13:8081/removeList', {
+      fetch('http://lukeharv.com:8081/removeList', {
         method: "POST"
       })
       .then(response => response.json())
       .then(data => {
         if(!data) {
-          window.location.reload();
+          fetch('http://lukeharv.com:8081/removeNotes', {
+            method: "POST"
+          })
+          .then(response => response.json())
+          .then(data => {
+            if(!data) {
+              window.location.reload();
+            }
+            else {
+              this.raiseError("Failed to remove shopping list.", 0);
+            }
+          })
+          .catch(err => this.raiseError(err, 1))
         }
         else {
           this.raiseError("Failed to remove shopping list.", 0);
@@ -106,4 +129,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#notes {
+  width: 100%;
+  height: 150px;
+  overflow-y: scroll;
+}
+
 </style>

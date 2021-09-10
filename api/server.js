@@ -35,7 +35,7 @@ app.get('/getList', function(req, res) {
 
 // Gets the list for today
 app.get('/getListToday', function(req, res) {
-    let filename = getFilename();
+    let filename = getListFilename();
 
     fs.readFile(filename, function(err, data) {
         if(err){
@@ -48,20 +48,48 @@ app.get('/getListToday', function(req, res) {
     });
 });
 
+
+// Gets the notes for today
+app.get('/getNotesToday', function(req, res) {
+    let filename = getNoteFilename();
+
+    fs.readFile(filename, function(err, data) {
+        if(err){
+            console.log(err);
+            res.end(JSON.stringify("FAULTED: " + err));
+            return;
+        }
+
+        res.end(data);
+    });
+});
+
 // Checks to see if a list has been created for today.
 app.get('/hasListToday', function(req, res) {
-    let filename = getFilename();
+    let filename = getListFilename();
     let doesExist = fs.existsSync(filename);
-
-    console.log(`Does exist: ${doesExist}`);
-
     res.end(JSON.stringify(doesExist));
 });
 
 app.post('/submitList', function(req, res) {
     console.log(req.body);
 
-    let filename = getFilename();
+    let filename = getListFilename();
+    fs.writeFile(filename, JSON.stringify(req.body), function(err) {
+        if(err){
+            console.log(err);
+            res.end(JSON.stringify(false));
+            return;
+        }
+
+        res.end(JSON.stringify(true));
+    });
+});
+
+app.post('/submitNotes', function(req, res) {
+    console.log(req.body);
+
+    let filename = getNoteFilename();
     fs.writeFile(filename, JSON.stringify(req.body), function(err) {
         if(err){
             console.log(err);
@@ -74,7 +102,16 @@ app.post('/submitList', function(req, res) {
 });
 
 app.post('/removeList', function(req, res) {
-    let filename = getFilename();
+    let filename = getListFilename();
+    fs.unlinkSync(filename);
+
+    // Let's make sure it's gone
+    let doesExist = fs.existsSync(filename);
+    res.end(JSON.stringify(doesExist));
+});
+
+app.post('/removeNotes', function(req, res) {
+    let filename = getNoteFilename();
     fs.unlinkSync(filename);
 
     // Let's make sure it's gone
@@ -90,7 +127,12 @@ var server = app.listen(8081, function() {
     console.log(`API Handler started on interface http://${host}:${port}/`);
 });
 
-function getFilename() {
+function getListFilename() {
     let date = new Date();
     return __dirname + `/data/${date.getDate()}-${date.getMonth()}-${date.getFullYear()}-list.json`;
+}
+
+function getNoteFilename() {
+    let date = new Date();
+    return __dirname + `/data/${date.getDate()}-${date.getMonth()}-${date.getFullYear()}-note.json`;
 }

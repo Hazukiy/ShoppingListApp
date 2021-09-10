@@ -15,6 +15,10 @@
                 <input type="checkbox" id="shopping-tick" />
             </div>
         </div>
+        <div id="extraTextContainer">
+          <h4>Extra Notes</h4>
+          <textarea id="extraText"></textarea>
+        </div>
         <footer class="fixed-bottom">
             <div class="container">
               <div id="cost-container">
@@ -42,7 +46,7 @@ export default {
     }
   },
   mounted() {
-    fetch('http://86.162.193.13:8081/getList')
+    fetch('http://lukeharv.com:8081/getList')
     .then(res => res.json())
     .then(data => this.predefinedList = data)
     .catch(err => this.raiseError(err, 1))
@@ -153,19 +157,44 @@ export default {
           return;
         }
 
-        const requestParams = {
+        const listParams = {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(this.checkedList)
         };
-        fetch('http://86.162.193.13:8081/submitList', requestParams)
+
+        // Submit list
+        fetch('http://lukeharv.com:8081/submitList', listParams)
         .then(response => response.json())
         .then(data => {
           if(data) {
-            window.location.reload();
+            // Submit extra
+            let extra = document.getElementById("extraText");
+            if(extra !== null && extra !== "undefined" && extra.value.length > 0) {
+              const noteParams = {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: `{ "notes" : "${extra.value}" }`
+              };
+
+              fetch('http://lukeharv.com:8081/submitNotes', noteParams)
+              .then(response => response.json())
+              .then(data => {
+                if(data) {
+                  window.location.reload();
+                }
+                else {
+                  this.raiseError("Failed to add new note.", 0);
+                }
+              })
+              .catch(err => this.raiseError(err, 1))
+            }
+            else {
+              window.location.reload();
+            }
           }
           else {
-            this.raiseError("Failed to add new list.", 0)
+            this.raiseError("Failed to add new list.", 0);
           }
         })
         .catch(err => this.raiseError(err, 1))
@@ -196,22 +225,21 @@ export default {
       }
     },
     reapplyDOMChanges() {
-      // This sucks, but its a solution. Need to check if DOM is full loaded and then check.. somehow
+      // NOTE: Could probably improve this somehow
       setTimeout(() => {
-        for(let i = 0; i < this.checkedList.length; i++) {
+        do{
+          for(let i = 0; i < this.checkedList.length; i++) {
             let domElement = document.querySelectorAll(`[itemid="${this.checkedList[i].id}"]`)[0];
 
-            console.log(`ItemID: ${this.checkedList[i].id}`);
-
             if(domElement == null || domElement == undefined) {
-              console.log("Value doesn't exist, so ignoring");
               continue;
             }
 
             let checkBox = domElement.querySelector('[id="shopping-tick"]');
             checkBox.checked = true;
-        }
-      }, 500);
+          }
+        }while(document.readyState !== "complete");
+      }, 100);
     }
   }
 };
@@ -273,5 +301,14 @@ export default {
 
     #searchItems {
       margin-bottom: 10px;
+    }
+
+    #extraText {
+      width: 100%;
+      height: 150px;
+    }
+
+    #extraTextContainer > h4 {
+      color: #e1e1e1;
     }
 </style>
